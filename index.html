@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Special Message for Lavie!</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+    }
+    h1 {
+      color: #ff4b72;
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+    p.subtitle {
+      color: #555;
+      font-size: 1.05rem;
+      margin-bottom: 25px;
+    }
+    .audio-player {
+      background: #fff5f7;
+      border: 1px solid #ffccd5;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
+    .audio-player p {
+      font-size: 0.95rem;
+      color: #444;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    audio {
+      width: 100%;
+      height: 40px;
+    }
+    .message-box {
+      min-height: 90px;
+      background: #fff;
+      border: 2px dashed #ff8fa3;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      margin-bottom: 25px;
+      color: #333;
+      font-size: 1.15rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    button {
+      background: #ff4b72;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    button:hover {
+      background: #e03a5f;
+      transform: translateY(-2px);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    .heart {
+      position: fixed;
+      font-size: 24px;
+      user-select: none;
+      pointer-events: none;
+      animation: floatUp 2s ease-out forwards;
+    }
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-120px) scale(1.5);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Hey Lavie! 👋</h1>
+    <p class="subtitle">Here's a little pick-me-up just for you:</p>
+
+    <!-- Audio Player Section -->
+    <div class="audio-player">
+      <p>🎵 Playing: DaBaby - Rockstar</p>
+      <audio controls loop>
+        <source src="rockstar.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+    
+    <!-- Message Box -->
+    <div class="message-box" id="message">
+      Tap any button below whenever you need a boost!
+    </div>
+
+    <!-- Interactive Buttons -->
+    <div class="btn-group">
+      <button onclick="showMessage('affirmation')">✨ Remind Me</button>
+      <button onclick="showMessage('joke')">😂 Bad Joke</button>
+      <button onclick="showMessage('hug')">🤗 Send Hug</button>
+    </div>
+  </div>
+
+  <script>
+    const data = {
+      affirmation: [
+        "Lavie, whatever is on your mind right now: you've got this!",
+        "Reminder: You're doing way better than you think you are.",
+        "Take a deep breath, Lavie. Today is just one step in the journey.",
+        "The world is genuinely a better place with you in it!"
+      ],
+      joke: [
+        "Why don't scientists trust atoms? Because they make up everything!",
+        "What do you call a fake noodle? An impasta!",
+        "Why did the scarecrow win an award? Because he was outstanding in his field!",
+        "What do you call a bear with no teeth? A gummy bear!"
+      ],
+      hug: [
+        "Virtual hug delivered! 💖",
+        "Sending positive energy your way, Lavie!",
+        "Take a moment for yourself today. You deserve it."
+      ]
+    };
+
+    function showMessage(type) {
+      const list = data[type];
+      const randomText = list[Math.floor(Math.random() * list.length)];
+      document.getElementById('message').innerText = randomText;
+      createHearts();
+    }
+
+    function createHearts() {
+      for (let i = 0; i < 6; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = ['❤️', '💖', '✨', '🌸'][Math.floor(Math.random() * 4)];
+        heart.style.left = (Math.random() * 80 + 10) + 'vw';
+        heart.style.top = (Math.random() * 40 + 50) + 'vh';
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 2000);
+      }
+    }
+  </script>
+</body>
+</html>
