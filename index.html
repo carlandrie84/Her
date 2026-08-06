@@ -123,16 +123,16 @@
 
     <!-- Audio Player Section -->
     <div class="audio-player">
-      <p id="track-label">🎵 Playing: Background Music</p>
-      <audio id="bg-audio" controls loop>
-        <source id="audio-source" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+      <p>🎵 Playing: DaBaby - Rockstar</p>
+      <audio id="bg-audio" controls loop preload="auto">
+        <source src="rockstar.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
     </div>
     
     <!-- Message Box -->
     <div class="message-box" id="message">
-      Tap anywhere on the page to start the music and get a boost!
+      Tap anywhere on the page to play the song and get a boost!
     </div>
 
     <!-- Interactive Buttons -->
@@ -145,29 +145,11 @@
 
   <script>
     const audio = document.getElementById('bg-audio');
-    const source = document.getElementById('audio-source');
-    
-    // Backup track list in case a network link goes down
-    const fallbackSources = [
-      "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3",
-      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-    ];
-    let currentTrackIndex = 0;
 
-    // Switch to backup link if loading fails
-    audio.addEventListener('error', () => {
-      currentTrackIndex++;
-      if (currentTrackIndex < fallbackSources.length) {
-        source.src = fallbackSources[currentTrackIndex];
-        audio.load();
-        audio.play().catch(() => {});
-      }
-    });
-
-    // Start playback on first screen interaction
+    // Plays the song on her first tap on the screen
     document.body.addEventListener('click', () => {
       if (audio.paused) {
-        audio.play().catch(err => console.log('Autoplay blocked:', err));
+        audio.play().catch(err => console.log('Autoplay error:', err));
       }
     }, { once: true });
 
