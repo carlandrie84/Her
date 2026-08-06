@@ -124,15 +124,15 @@
     <!-- Audio Player Section -->
     <div class="audio-player">
       <p>🎵 Playing: DaBaby - Rockstar</p>
-      <audio controls loop>
-        <source src="rockstar.mp3" type="audio/mpeg">
+      <audio id="bg-audio" controls loop>
+        <source src="https://cdns-preview-d.dzcdn.net/stream/c-d64627d704259b3f94dbfa1c3609806e-5.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
     </div>
     
     <!-- Message Box -->
     <div class="message-box" id="message">
-      Tap any button below whenever you need a boost!
+      Tap anywhere on the page to start the music and get a boost!
     </div>
 
     <!-- Interactive Buttons -->
@@ -144,6 +144,15 @@
   </div>
 
   <script>
+    const audio = document.getElementById('bg-audio');
+
+    // Starts audio on the first tap anywhere on screen to work around mobile restrictions
+    document.body.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+      }
+    }, { once: true });
+
     const data = {
       affirmation: [
         "Lavie, whatever is on your mind right now: you've got this!",
