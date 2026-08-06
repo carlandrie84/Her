@@ -123,9 +123,9 @@
 
     <!-- Audio Player Section -->
     <div class="audio-player">
-      <p>🎵 Playing: DaBaby - Rockstar</p>
+      <p id="track-label">🎵 Playing: Background Music</p>
       <audio id="bg-audio" controls loop>
-        <source src="https://cdns-preview-d.dzcdn.net/stream/c-d64627d704259b3f94dbfa1c3609806e-5.mp3" type="audio/mpeg">
+        <source id="audio-source" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
       </audio>
     </div>
@@ -145,11 +145,29 @@
 
   <script>
     const audio = document.getElementById('bg-audio');
+    const source = document.getElementById('audio-source');
+    
+    // Backup track list in case a network link goes down
+    const fallbackSources = [
+      "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3",
+      "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+    ];
+    let currentTrackIndex = 0;
 
-    // Starts audio on the first tap anywhere on screen to work around mobile restrictions
+    // Switch to backup link if loading fails
+    audio.addEventListener('error', () => {
+      currentTrackIndex++;
+      if (currentTrackIndex < fallbackSources.length) {
+        source.src = fallbackSources[currentTrackIndex];
+        audio.load();
+        audio.play().catch(() => {});
+      }
+    });
+
+    // Start playback on first screen interaction
     document.body.addEventListener('click', () => {
       if (audio.paused) {
-        audio.play();
+        audio.play().catch(err => console.log('Autoplay blocked:', err));
       }
     }, { once: true });
 
